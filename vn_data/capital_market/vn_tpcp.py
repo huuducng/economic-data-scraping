@@ -6,7 +6,7 @@ from dateutil.relativedelta import relativedelta
 import warnings
 warnings.filterwarnings("ignore")
 
-home = str(pathlib.Path.home())+"/data/vn_bond_market/"
+home = str(pathlib.Path.home())+"/CloudDrive/My Drive/data/vn_bond_market/"
 
 # Function
 def tableDataText(table):    

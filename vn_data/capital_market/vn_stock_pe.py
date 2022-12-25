@@ -1,6 +1,6 @@
 import requests, datetime, openpyxl, pathlib
 
-home = str(pathlib.Path.home())+'/data/vn_stock_market/'
+home = str(pathlib.Path.home())+'/CloudDrive/My Drive/data/vn_stock_market/'
 
 # load data
 headers = {

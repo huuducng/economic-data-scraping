@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup
 import time, datetime, openpyxl, requests, pathlib
 import pandas as pd
 
-home = str(pathlib.Path.home())+'/data/vn_fx/'
+home = str(pathlib.Path.home())+'/CloudDrive/My Drive/data/vn_fx/'
 today = datetime.datetime.today() + datetime.timedelta(-1)
 
 def tudo(date):

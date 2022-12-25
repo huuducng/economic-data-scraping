@@ -3,10 +3,11 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.by import By
 import time, datetime, openpyxl, pathlib
+import pandas as pd
 
 engsub = {"Quađêm":"ON","1Tuần":"1W","2Tuần":"2W","1Tháng":"1M","3Tháng":"3M","6Tháng":"6M","9Tháng":"9M","12Tháng":"12M"}
 
-home = str(pathlib.Path.home())+'/data/vn_money_market/'
+home = str(pathlib.Path.home())+'/CloudDrive/My Drive/data/vn_money_market/'
 today = datetime.datetime.today() + datetime.timedelta(-1)
 
 def getlslnh(date):
@@ -79,3 +80,15 @@ while True:
 	wb.save(home+'vn_interbank.xlsx')
 	if latest > today:
 		break
+
+df = pd.read_excel(home+'vn_interbank.xlsx')
+df = df[['date', 'kỳ hạn', 'lãi suất (%)']]
+
+date = pd.DataFrame({'date':pd.date_range(start=min(df['date']), end=max(df['date']), freq='M')})
+for item in df['kỳ hạn'].unique():
+    sub_df = df[df['kỳ hạn'] == item]
+    sub_df2 = sub_df.set_index('date').resample('M').mean().reset_index()
+    sub_df2 = sub_df2.rename({'lãi suất (%)':item}, axis=1)
+    date = date.merge(sub_df2, how='outer')
+
+date.to_excel(home+'vn_interbankM.xlsx', index=False)

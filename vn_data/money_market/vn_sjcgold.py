@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup
 import requests, datetime, openpyxl, pathlib
 
-home = str(pathlib.Path.home())+'/data/vn_money_market/'
+home = str(pathlib.Path.home())+'/CloudDrive/My Drive/data/vn_money_market/'
 
 # functions
 def tableDataText(table):
