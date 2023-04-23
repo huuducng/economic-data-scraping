@@ -34,13 +34,15 @@ def sbv(date):
 	driver.find_element(By.NAME,'pt1:r2:0:id4').send_keys(datetime.datetime.strftime(date, '%d/%m/%Y'))
 	driver.find_element(By.ID,'pt1:r2:0:cb1').click()
 	time.sleep(1.5)
-	if len(driver.find_elements(By.LINK_TEXT,'Xem')) > 0:
-		driver.find_element(By.LINK_TEXT,'Xem').click()
-		time.sleep(1)
-		raw = driver.find_elements(By.CLASS_NAME,'jrPage')[1].text.splitlines()
+	element = driver.find_element(By.ID, 'pt1:r2:0:t1::db').text
+	if datetime.datetime.strftime(date, '%d/%m/%Y') in element:
+		if len(driver.find_elements(By.LINK_TEXT,'Xem')) > 0:
+			driver.find_element(By.LINK_TEXT,'Xem').click()
+			time.sleep(1)
+			raw = driver.find_elements(By.CLASS_NAME,'jrPage')[1].text.splitlines()
 
-		if raw[-1].split()[-1] == datetime.datetime.strftime(date, '%d/%m/%Y'):
-			return {date:int(raw[2].split()[-2].replace('.',''))}
+			if raw[-1].split()[-1] == datetime.datetime.strftime(date, '%d/%m/%Y'):
+				return {date:int(raw[2].split()[-2].replace('.',''))}
 
 def tableDataText(table):    
     """Parses a html segment started with tag <table> followed 
